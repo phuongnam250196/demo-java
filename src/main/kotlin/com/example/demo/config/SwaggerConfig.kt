@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class SwaggerConfig {
-
     @Bean
     @ConditionalOnProperty(name = ["swagger.enabled"], havingValue = "true", matchIfMissing = false)
     fun customOpenAPI(): OpenAPI {
@@ -17,7 +16,7 @@ class SwaggerConfig {
                 Info()
                     .title("Demo API")
                     .description("Spring Boot REST API with Swagger and JWT")
-                    .version("1.0")
+                    .version("1.0"),
             )
     }
 }

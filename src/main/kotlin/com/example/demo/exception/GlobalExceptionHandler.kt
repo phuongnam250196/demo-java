@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 
 @ControllerAdvice
 class GlobalExceptionHandler {
-
     @ExceptionHandler(Exception::class)
     fun handleException(ex: Exception): ResponseEntity<String> {
         return ResponseEntity(ex.message ?: "Unknown error", HttpStatus.INTERNAL_SERVER_ERROR)

@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
 	kotlin("kapt") version "1.9.25"
+	id("com.diffplug.spotless") version "6.25.0"
 }
 
 group = "com.example"
@@ -42,16 +43,14 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
 	// Swagger/OpenAPI
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 
-	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
 
 	// PostgreSQL
 	runtimeOnly("org.postgresql:postgresql")
 
-	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
@@ -72,4 +71,22 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint("1.2.1")
+    }
+
+    java {
+        target("**/*.java")
+        googleJavaFormat()
+    }
+
+    format("misc") {
+        target("*.gradle.kts", "*.md", ".gitignore")
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }
